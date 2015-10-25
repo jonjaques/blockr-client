@@ -82,10 +82,10 @@ export default class Master extends Component {
         {this.renderInlineCss()}
         {this.renderMetaInfo()}
         {this.renderTitle()}
-        {this.renderLinks()}
       </head>
       <body>
         {this.renderApplication()}
+        {this.renderLinks()}
         {this.renderState()}
         {this.renderScripts()}
       </body>
