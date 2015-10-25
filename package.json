@@ -9,7 +9,7 @@
     "url": "https://github.com/jonjaques/blockr-client.git"
   },
   "scripts": {
-    "postinstall": "node ./node_modules/gulp/bin/gulp.js && webpack",
+    "postinstall": "webpack && gulp build-assets",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index",
     "dev": "node ./node_modules/concurrently/src/main.js --kill-others 'npm start' 'gulp dev' 'webpack -w'",
