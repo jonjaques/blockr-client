@@ -14,10 +14,10 @@ export default class Master extends Component {
       author: 'Jon Jaques'
     },
     links: [
-      './assets/css/main.css'
+      'https://s3.amazonaws.com/blockr-client-assets/css/main.css'
     ],
     scripts: [
-      './assets/js/main.js'
+      'https://s3.amazonaws.com/blockr-client-assets/js/main.js'
     ],
     state: {}
   }
