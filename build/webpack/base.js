@@ -12,6 +12,29 @@ const BUILD_CONSTANTS = {
   __SERVER__: false
 }
 
+const plugins = [
+  // new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+
+  // new webpack.HotModuleReplacementPlugin(),
+
+  new webpack.WatchIgnorePlugin([/\.json$/]),
+
+  new webpack.NoErrorsPlugin(),
+
+  new webpack.DefinePlugin(BUILD_CONSTANTS),
+
+  // optimizations
+  new webpack.optimize.DedupePlugin(),
+
+  new webpack.optimize.OccurenceOrderPlugin(),
+  
+  new CleanPlugin([assetsPath + '/*']),
+]
+
+if (process.env.NODE_ENV === 'production') {
+  plugins.push(new webpack.optimize.UglifyJsPlugin())
+}
+
 export default {
   devtool: 'source-map',
   context: path.resolve(__dirname, '../..'),
@@ -57,27 +80,6 @@ export default {
     extensions: ['', '.json', '.js']
   },
 
-  plugins: [
-
-    // new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-
-    // new webpack.HotModuleReplacementPlugin(),
-
-    new webpack.WatchIgnorePlugin([/\.json$/]),
-
-    new webpack.NoErrorsPlugin(),
-
-    new webpack.DefinePlugin(BUILD_CONSTANTS),
-
-    // optimizations
-    new webpack.optimize.DedupePlugin(),
-
-    // new webpack.optimize.UglifyJsPlugin(),
-
-    new webpack.optimize.OccurenceOrderPlugin(),
-    
-    new CleanPlugin([assetsPath + '/*']),
-
-  ]
+  plugins: plugins
 
 }

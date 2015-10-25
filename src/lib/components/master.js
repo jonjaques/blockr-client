@@ -43,7 +43,7 @@ export default class Master extends Component {
     let count = 0
     return map(this.props.scripts, (src)=> {
       count++
-      return <script key={`script-${count}`} src={src}></script>
+      return <script defer key={`script-${count}`} src={src}></script>
     })
   }
 
