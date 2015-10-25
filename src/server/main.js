@@ -14,7 +14,8 @@ app.use('/assets', express.static(path.resolve('assets')))
 import Master from '../lib/components/master'
 
 app.get('/*', (req, res)=> {
-  res.send(renderToString(<Master />))
+  let inline = require('../../assets/perf/inline.json')
+  res.send(renderToString(<Master inlineCss={inline.css} />))
 })
 
 export default app;

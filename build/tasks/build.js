@@ -5,6 +5,8 @@ import sourcemaps          from 'gulp-sourcemaps'
 import autoprefixer        from 'gulp-autoprefixer'
 import gzip                from 'gulp-gzip'
 import s3                  from 'gulp-s3'
+import fs                  from 'fs'
+import penthouse           from 'penthouse'
 
 gulp.task('build', ['build-css'])
 gulp.task('build-prod', ['build-assets'])
@@ -12,6 +14,20 @@ gulp.task('build-prod', ['build-assets'])
 const libPaths = {
   bootstrap: path.resolve(require.resolve('bootstrap'), '../../../scss')
 }
+
+gulp.task('build-inline-css', ['build-css'], (done)=> {
+  penthouse({
+    url: 'http://localhost:3000',
+    css: path.resolve('assets/css/main.css'),
+    width: 320,
+    height: 480
+  }, (err, output)=> {
+    let file = JSON.stringify({ css: output })
+    fs.writeFile(path.resolve('assets/perf/inline.json'), file, (err)=> {
+      done()
+    })
+  })
+})
 
 gulp.task('build-css', ()=> {
   const sassOpts = {

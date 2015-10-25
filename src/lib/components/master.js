@@ -66,11 +66,20 @@ export default class Master extends Component {
     }} />
   }
 
+  renderInlineCss() {
+    if (this.props.inlineCss) {
+      return <style dangerouslySetInnerHTML={{
+        __html: this.props.inlineCss
+      }} />
+    }
+  }
+
   render() {
     return <html>
       <head>
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        {this.renderInlineCss()}
         {this.renderMetaInfo()}
         {this.renderTitle()}
         {this.renderLinks()}
