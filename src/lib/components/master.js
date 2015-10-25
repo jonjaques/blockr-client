@@ -14,10 +14,10 @@ export default class Master extends Component {
       author: 'Jon Jaques'
     },
     links: [
-      'https://s3.amazonaws.com/blockr-client-assets/css/main.css'
+      '//s3.amazonaws.com/blockr-client-assets/css/main.css'
     ],
     scripts: [
-      'https://s3.amazonaws.com/blockr-client-assets/js/main.js'
+      '//s3.amazonaws.com/blockr-client-assets/js/main.js'
     ],
     state: {}
   }
@@ -31,8 +31,21 @@ export default class Master extends Component {
     })
   }
 
+  renderAsyncLinks() {
+    let calls = map(this.props.links, link => `loadCSS("${link}")`).join(';')
+    return <script dangerouslySetInnerHTML={{
+      __html: this.props.asyncCss + calls
+    }} />
+  }
+
   renderLinks() {
     let count = 0
+    let async = !!this.props.asyncCss
+
+    if (async) {
+      return this.renderAsyncLinks()
+    }
+
     return map(this.props.links, (href)=> {
       count++
       return <link key={`link-${count}`} rel="stylesheet" href={href} />
@@ -82,10 +95,10 @@ export default class Master extends Component {
         {this.renderInlineCss()}
         {this.renderMetaInfo()}
         {this.renderTitle()}
+        {this.renderLinks()}
       </head>
       <body>
         {this.renderApplication()}
-        {this.renderLinks()}
         {this.renderState()}
         {this.renderScripts()}
       </body>
